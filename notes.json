@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Buy groceries",
+    "content": "Milk, eggs, bread, butter",
+    "tag": "Shopping"
+  },
+  {
+    "title": "Team standup",
+    "content": "Daily meeting at 10am",
+    "tag": "Meeting"
+  },
+  {
+    "title": "Read a book",
+    "content": "Finish 'Atomic Habits'",
+    "tag": "Personal"
+  },
+  {
+    "title": "Project deadline",
+    "content": "Submit the report by Friday",
+    "tag": "Work"
+  },
+  {
+    "title": "Morning run",
+    "content": "Run 5km in the park",
+    "tag": "Health"
+  }
+]
