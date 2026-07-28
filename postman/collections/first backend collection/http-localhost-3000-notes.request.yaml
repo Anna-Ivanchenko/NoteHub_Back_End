@@ -1,0 +1,17 @@
+$kind: http-request
+name: http://localhost:3000/notes
+description: ""
+url: http://localhost:3000/notes
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"title\": \"Morning run\",\r
+
+    \    \"content\": \"Run 5km in the park\",\r
+
+    \    \"tag\": \"Health\"\r
+
+    }"
+order: 1784812760764
