@@ -100,6 +100,44 @@ export const refreshUserSession = async (req, res) => {
   });
 };
 
+export const checkSession = async (req, res) => {
+  const { sessionId, accessToken, refreshToken } = req.cookies;
+
+  if (!sessionId) {
+    return res.status(200).json(null);
+  }
+
+  // Access token is still valid — return the current user as-is.
+  if (accessToken) {
+    const activeSession = await Session.findOne({ _id: sessionId, accessToken });
+    if (activeSession && activeSession.accessTokenValidUntil > new Date()) {
+      const user = await User.findById(activeSession.userId);
+      if (user) {
+        return res.status(200).json(user);
+      }
+    }
+  }
+
+  // Access token missing/expired but we have a refresh token — try to refresh.
+  if (refreshToken) {
+    const session = await Session.findOne({ _id: sessionId, refreshToken });
+
+    if (session && session.refreshTokenValidUntil > new Date()) {
+      await session.deleteOne();
+      const newSession = await createSession(session.userId);
+      setSessionCookies(res, newSession);
+
+      const user = await User.findById(newSession.userId);
+      return res.status(200).json(user);
+    }
+  }
+
+  res.clearCookie('sessionId');
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
+  return res.status(200).json(null);
+};
+
 //!-----------------------------------------
 export const requestResetEmail = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });

@@ -14,11 +14,17 @@ import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 const PORT = process.env.PORT || 3000;
+const FRONTEND_DOMAIN = process.env.FRONTEND_DOMAIN || 'http://localhost:3001';
 
 const app = express();
 
 app.use(logger);
-app.use(cors());
+app.use(
+  cors({
+    origin: FRONTEND_DOMAIN,
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 

@@ -7,87 +7,36 @@
   },
   "servers": [
     {
+      "url": "https://nodejs-hw-5-xp1z.onrender.com",
+      "description": "Production (Render)"
+    },
+    {
       "url": "http://localhost:3000",
       "description": "Local server"
     }
   ],
-  "components": {
-    "securitySchemes": {
-      "cookieAuth": {
-        "type": "apiKey",
-        "in": "cookie",
-        "name": "accessToken"
-      }
-    },
-    "schemas": {
-      "User": {
-        "type": "object",
-        "properties": {
-          "_id": { "type": "string", "example": "64f1a2b3c4d5e6f7a8b9c0d1" },
-          "email": { "type": "string", "example": "user@mail.com" },
-          "username": { "type": "string", "example": "user@mail.com" },
-          "createdAt": { "type": "string", "format": "date-time" },
-          "updatedAt": { "type": "string", "format": "date-time" }
-        }
-      },
-      "Note": {
-        "type": "object",
-        "properties": {
-          "_id": { "type": "string", "example": "64f1a2b3c4d5e6f7a8b9c0d1" },
-          "title": { "type": "string", "example": "Buy groceries" },
-          "content": { "type": "string", "example": "Milk, eggs, bread" },
-          "tag": {
-            "type": "string",
-            "enum": ["Work","Personal","Meeting","Shopping","Ideas","Travel","Finance","Health","Important","Todo"],
-            "example": "Shopping"
-          },
-          "userId": { "type": "string", "example": "64f1a2b3c4d5e6f7a8b9c0d1" },
-          "createdAt": { "type": "string", "format": "date-time" },
-          "updatedAt": { "type": "string", "format": "date-time" }
-        }
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string", "example": "Something went wrong" }
-        }
-      }
-    }
-  },
   "paths": {
     "/auth/register": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "Register a new user",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
                 "properties": {
-                  "email": { "type": "string", "format": "email", "example": "user@mail.com" },
-                  "password": { "type": "string", "minLength": 8, "example": "12345678" }
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
                 }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "User registered successfully",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/User" }
-              }
-            }
-          },
-          "400": {
-            "description": "Email in use",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
@@ -96,42 +45,25 @@
     },
     "/auth/login": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "Login user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
                 "properties": {
-                  "email": { "type": "string", "format": "email", "example": "user@mail.com" },
-                  "password": { "type": "string", "example": "12345678" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Login successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "user": { "$ref": "#/components/schemas/User" }
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
                   }
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid credentials",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
@@ -140,88 +72,52 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "Logout user",
-        "security": [{ "cookieAuth": [] }],
+        "description": "",
         "responses": {
-          "204": { "description": "Logged out successfully" },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
-              }
-            }
+          "204": {
+            "description": "No Content"
           }
         }
       }
     },
     "/auth/refresh": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "Refresh session",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Session refreshed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": { "type": "string", "example": "Session refreshed" }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Session not found or expired",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
-              }
-            }
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/session": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
     "/auth/request-reset-email": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "Request password reset email",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email"],
                 "properties": {
-                  "email": { "type": "string", "format": "email", "example": "user@mail.com" }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Reset email sent",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": { "type": "string", "example": "Reset password email has been successfully sent" }
+                  "email": {
+                    "example": "any"
                   }
                 }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
@@ -230,42 +126,25 @@
     },
     "/auth/reset-password": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "Reset password",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["password", "token"],
                 "properties": {
-                  "password": { "type": "string", "minLength": 8, "example": "newpassword123" },
-                  "token": { "type": "string", "example": "eyJhbGciOiJIUzI1NiJ9..." }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Password reset successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": { "type": "string", "example": "Password has been successfully reset" }
+                  "password": {
+                    "example": "any"
+                  },
+                  "token": {
+                    "example": "any"
                   }
                 }
-              }
-            }
-          },
-          "401": {
-            "description": "Token expired or invalid",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
@@ -274,172 +153,134 @@
     },
     "/notes": {
       "get": {
-        "tags": ["Notes"],
-        "summary": "Get all notes",
-        "security": [{ "cookieAuth": [] }],
+        "description": "",
         "parameters": [
-          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 }, "description": "Page number" },
-          { "name": "perPage", "in": "query", "schema": { "type": "integer", "default": 10, "minimum": 5, "maximum": 20 }, "description": "Items per page" },
-          { "name": "tag", "in": "query", "schema": { "type": "string", "enum": ["Work","Personal","Meeting","Shopping","Ideas","Travel","Finance","Health","Important","Todo"] }, "description": "Filter by tag" },
-          { "name": "search", "in": "query", "schema": { "type": "string" }, "description": "Search in title and content" }
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
-            "description": "List of notes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "page": { "type": "integer", "example": 1 },
-                    "perPage": { "type": "integer", "example": 10 },
-                    "totalNotes": { "type": "integer", "example": 5 },
-                    "totalPages": { "type": "integer", "example": 1 },
-                    "notes": { "type": "array", "items": { "$ref": "#/components/schemas/Note" } }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
-              }
-            }
+            "description": "OK"
           }
         }
       },
       "post": {
-        "tags": ["Notes"],
-        "summary": "Create a note",
-        "security": [{ "cookieAuth": [] }],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["title"],
-                "properties": {
-                  "title": { "type": "string", "example": "Buy groceries" },
-                  "content": { "type": "string", "example": "Milk, eggs, bread" },
-                  "tag": { "type": "string", "enum": ["Work","Personal","Meeting","Shopping","Ideas","Travel","Finance","Health","Important","Todo"], "example": "Shopping" }
-                }
-              }
-            }
-          }
-        },
+        "description": "",
         "responses": {
           "201": {
-            "description": "Note created",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Note" }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
-              }
-            }
+            "description": "Created"
           }
         }
       }
     },
     "/notes/{noteId}": {
       "get": {
-        "tags": ["Notes"],
-        "summary": "Get note by ID",
-        "security": [{ "cookieAuth": [] }],
+        "description": "",
         "parameters": [
-          { "name": "noteId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Note ID" }
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
-            "description": "Note found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Note" }
-              }
-            }
-          },
-          "404": {
-            "description": "Note not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
-              }
-            }
+            "description": "OK"
           }
         }
       },
       "patch": {
-        "tags": ["Notes"],
-        "summary": "Update note",
-        "security": [{ "cookieAuth": [] }],
+        "description": "",
         "parameters": [
-          { "name": "noteId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Note ID" }
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": { "type": "string", "example": "Updated title" },
-                  "content": { "type": "string", "example": "Updated content" },
-                  "tag": { "type": "string", "enum": ["Work","Personal","Meeting","Shopping","Ideas","Travel","Finance","Health","Important","Todo"] }
+                  "username": {
+                    "example": "any"
+                  }
                 }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Note updated",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Note" }
-              }
-            }
-          },
-          "404": {
-            "description": "Note not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Notes"],
-        "summary": "Delete note",
-        "security": [{ "cookieAuth": [] }],
-        "parameters": [
-          { "name": "noteId", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Note ID" }
-        ],
-        "responses": {
-          "200": {
-            "description": "Note deleted",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Note" }
-              }
-            }
-          },
-          "404": {
-            "description": "Note not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
               }
             }
           }
@@ -448,43 +289,10 @@
     },
     "/users/me/avatar": {
       "patch": {
-        "tags": ["Users"],
-        "summary": "Upload user avatar",
-        "security": [{ "cookieAuth": [] }],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "avatar": { "type": "string", "format": "binary" }
-                }
-              }
-            }
-          }
-        },
+        "description": "",
         "responses": {
           "200": {
-            "description": "Avatar uploaded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "avatarUrl": { "type": "string", "example": "https://res.cloudinary.com/..." }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Error" }
-              }
-            }
+            "description": "OK"
           }
         }
       }

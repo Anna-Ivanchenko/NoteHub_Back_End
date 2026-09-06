@@ -3,9 +3,18 @@ import swaggerAutogen from 'swagger-autogen';
 const doc = {
   info: {
     title: 'Notes API',
-    description: 'Description 123',
+    description: 'REST API for managing notes with authentication',
   },
-  host: 'localhost:3000',
+  servers: [
+    {
+      url: 'https://nodejs-hw-5-xp1z.onrender.com',
+      description: 'Production (Render)',
+    },
+    {
+      url: 'http://localhost:3000',
+      description: 'Local server',
+    },
+  ],
 };
 
 const outputFile = './swagger-output.json';
