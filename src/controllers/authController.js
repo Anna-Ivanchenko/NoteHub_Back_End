@@ -17,10 +17,18 @@ export const registerUser = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-  const user = await User.create({
-    email: req.body.email,
-    password: hashedPassword,
-  });
+  let user;
+  try {
+    user = await User.create({
+      email: req.body.email,
+      password: hashedPassword,
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      throw createHttpError(400, 'Email in use');
+    }
+    throw error;
+  }
 
   const newSession = await createSession(user._id);
 
@@ -109,7 +117,10 @@ export const checkSession = async (req, res) => {
 
   // Access token is still valid — return the current user as-is.
   if (accessToken) {
-    const activeSession = await Session.findOne({ _id: sessionId, accessToken });
+    const activeSession = await Session.findOne({
+      _id: sessionId,
+      accessToken,
+    });
     if (activeSession && activeSession.accessTokenValidUntil > new Date()) {
       const user = await User.findById(activeSession.userId);
       if (user) {
