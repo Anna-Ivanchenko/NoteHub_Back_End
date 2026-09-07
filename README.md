@@ -20,7 +20,7 @@ Cloudinary, password reset via email.
 | 🌐 App (frontend) | https://09-auth-black-six.vercel.app |
 | ⚙️ API (backend) | https://nodejs-hw-5-xp1z.onrender.com |
 | 📖 Swagger docs | https://nodejs-hw-5-xp1z.onrender.com/docs |
-| 💻 Frontend repository | [`09-auth`](https://github.com/Anna-Ivanchenko/09-auth) |
+| 💻 Frontend repository | [`NoteHub_Front_End`](https://github.com/Anna-Ivanchenko/NoteHub_Front_End) |
 
 > The backend runs on Render's free tier — after a period of inactivity the
 > first request can take up to ~50 seconds while the service "wakes up",
@@ -95,7 +95,7 @@ CLOUDINARY_API_SECRET=
 
 What each one is for:
 
-- `FRONTEND_DOMAIN` — the address the frontend (`09-auth`) makes requests
+- `FRONTEND_DOMAIN` — the address the frontend (`NoteHub_Front_End`) makes requests
   from; used for CORS and for the link in the password-reset email.
 - `MONGO_URL` — your MongoDB connection string (local instance or an Atlas cluster).
 - `JWT_SECRET` — any random string, used to sign tokens.
@@ -114,7 +114,7 @@ npm run dev                 # nodemon, http://localhost:3000
 
 Requires an accessible MongoDB instance (local install or a free MongoDB
 Atlas cluster). To test it together with the frontend, clone and run
-[`09-auth`](https://github.com/Anna-Ivanchenko/09-auth) alongside it, and
+[`NoteHub_Front_End`](https://github.com/Anna-Ivanchenko/NoteHub_Front_End) alongside it, and
 set `NEXT_PUBLIC_API_URL=http://localhost:3000` in its `.env.local`.
 
 ### Deploying (Render.com)
@@ -123,7 +123,7 @@ set `NEXT_PUBLIC_API_URL=http://localhost:3000` in its `.env.local`.
 2. Build Command: `npm install`, Start Command: `npm start`.
 3. Fill in the environment variables from `.env.example` in the
    Environment tab (`MONGO_URL` — your Atlas connection string,
-   `FRONTEND_DOMAIN` — the deployed frontend's URL from `09-auth`).
+   `FRONTEND_DOMAIN` — the deployed frontend's URL from `NoteHub_Front_End`).
 4. Once deployed, the backend is available at
    `https://<service>.onrender.com` — that's the URL to give the frontend
    as `NEXT_PUBLIC_API_URL`.
@@ -153,7 +153,7 @@ set `NEXT_PUBLIC_API_URL=http://localhost:3000` in its `.env.local`.
 | 🌐 Застосунок (фронтенд) | https://09-auth-black-six.vercel.app |
 | ⚙️ API (бекенд) | https://nodejs-hw-5-xp1z.onrender.com |
 | 📖 Swagger-документація | https://nodejs-hw-5-xp1z.onrender.com/docs |
-| 💻 Репозиторій фронтенду | [`09-auth`](https://github.com/Anna-Ivanchenko/09-auth) |
+| 💻 Репозиторій фронтенду | [`NoteHub_Front_End`](https://github.com/Anna-Ivanchenko/NoteHub_Front_End) |
 
 > Бекенд задеплоєний на безкоштовному тарифі Render — після періоду
 > неактивності перший запит може оброблятись до ~50 секунд (сервіс
@@ -228,7 +228,7 @@ CLOUDINARY_API_SECRET=
 
 Що для чого:
 
-- `FRONTEND_DOMAIN` — адреса, з якої фронтенд (`09-auth`) робить запити;
+- `FRONTEND_DOMAIN` — адреса, з якої фронтенд (`NoteHub_Front_End`) робить запити;
   використовується для CORS і для посилання у листі скидання пароля.
 - `MONGO_URL` — рядок підключення до MongoDB (локальна база чи кластер Atlas).
 - `JWT_SECRET` — будь-який випадковий рядок, використовується для підпису токенів.
@@ -247,7 +247,7 @@ npm run dev                # nodemon, http://localhost:3000
 
 Потрібна доступна MongoDB (локальна інсталяція або безкоштовний кластер
 на MongoDB Atlas). Щоб протестувати разом із фронтендом — заклонуй і
-запусти [`09-auth`](https://github.com/Anna-Ivanchenko/09-auth) поруч і
+запусти [`NoteHub_Front_End`](https://github.com/Anna-Ivanchenko/NoteHub_Front_End) поруч і
 вкажи в його `.env.local` `NEXT_PUBLIC_API_URL=http://localhost:3000`.
 
 ### Деплой (Render.com)
@@ -256,7 +256,7 @@ npm run dev                # nodemon, http://localhost:3000
 2. Build Command: `npm install`, Start Command: `npm start`.
 3. Заповни змінні середовища з `.env.example` у розділі Environment
    (`MONGO_URL` — рядок підключення з Atlas, `FRONTEND_DOMAIN` — URL
-   задеплоєного фронтенду з `09-auth`).
+   задеплоєного фронтенду з `NoteHub_Front_End`).
 4. Після деплою бекенд буде доступний на `https://<service>.onrender.com` —
    цей URL і треба вказати фронтенду в `NEXT_PUBLIC_API_URL`.
 
