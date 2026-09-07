@@ -6,7 +6,11 @@ import fs from 'node:fs/promises';
 import jwt from 'jsonwebtoken';
 import { sendEmail } from '../utils/sendMail.js';
 import { User } from '../models/user.js';
-import { createSession, setSessionCookies } from '../services/auth.js';
+import {
+  createSession,
+  setSessionCookies,
+  clearSessionCookies,
+} from '../services/auth.js';
 import { Session } from '../models/session.js';
 
 export const registerUser = async (req, res) => {
@@ -65,9 +69,7 @@ export const logoutUser = async (req, res) => {
     await Session.deleteOne({ _id: req.cookies.sessionId });
   }
 
-  res.clearCookie('sessionId');
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
+  clearSessionCookies(res);
 
   res.status(204).send();
 };
@@ -92,9 +94,7 @@ export const refreshUserSession = async (req, res) => {
 
   if (isRefreshTokenExpired) {
     await session.deleteOne();
-    res.clearCookie('sessionId');
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
+    clearSessionCookies(res);
     throw createHttpError(401, 'Session token expired');
   }
 
@@ -141,9 +141,7 @@ export const checkSession = async (req, res) => {
     }
   }
 
-  res.clearCookie('sessionId');
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
+  clearSessionCookies(res);
   return res.status(200).json(null);
 };
 
