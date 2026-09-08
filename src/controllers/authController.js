@@ -61,7 +61,7 @@ export const loginUser = async (req, res) => {
 
   setSessionCookies(res, newSession);
 
-  res.status(200).json({ user });
+  res.status(200).json(user);
 };
 
 export const logoutUser = async (req, res) => {
